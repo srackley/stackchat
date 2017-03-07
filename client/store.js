@@ -30,37 +30,37 @@ const GET_CHANNELS = 'GET_CHANNELS';
 export function updateName (name) {
   const action = { type: UPDATE_NAME, name };
   return action;
-};
+}
 
 export function getMessage (message) {
   const action = { type: GET_MESSAGE, message };
   return action;
-};
+}
 
 export function getMessages (messages) {
   const action = { type: GET_MESSAGES, messages };
   return action;
-};
+}
 
 export function writeMessage (content) {
   const action = { type: WRITE_MESSAGE, content };
   return action;
-};
+}
 
 export function writeChannelName (channelName) {
   const action = { type: WRITE_CHANNEL_NAME, channelName };
   return action;
-};
+}
 
 export function getChannel (channel) {
   const action = { type: GET_CHANNEL, channel };
   return action;
-};
+}
 
 export function getChannels (channels) {
   const action = { type: GET_CHANNELS, channels };
   return action;
-};
+}
 
 // THUNK CREATORS
 
@@ -85,6 +85,18 @@ export function postMessage (message) {
         const action = getMessage(newMessage);
         dispatch(action);
         socket.emit('new-message', newMessage);
+      });
+  }
+}
+
+export function fetchMessages () {
+
+  return function thunk (dispatch) {
+    return axios.get('/api/messages')
+      .then(res => res.data)
+      .then(messages => {
+        const action = getMessages(messages);
+        dispatch(action);
       });
   }
 }
