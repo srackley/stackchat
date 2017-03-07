@@ -89,13 +89,13 @@ export function postMessage (message) {
   }
 }
 
-export function fetchMessages () {
+export function fetchChannels () {
 
   return function thunk (dispatch) {
-    return axios.get('/api/messages')
+    return axios.get('/api/channels')
       .then(res => res.data)
-      .then(messages => {
-        const action = getMessages(messages);
+      .then(channels => {
+        const action = getChannels(channels);
         dispatch(action);
       });
   }
