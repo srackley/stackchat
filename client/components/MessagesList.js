@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
-import axios from 'axios';
 import store from '../store';
 
 export default class Messages extends Component {
