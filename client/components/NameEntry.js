@@ -1,38 +1,40 @@
-import React, { Component } from 'react';
-import store, { updateName } from '../store';
+import React from 'react';
+import { connect } from 'react-redux';
+import { updateName } from '../store';
 
-export default class NameEntry extends Component {
+function NameEntry (props) {
 
-  constructor () {
-    super();
-    this.state = store.getState();
-    this.handleChange = this.handleChange.bind(this);
-  }
+  const { name, handleChange } = props;
 
-  componentDidMount () {
-    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-  }
-
-  componentWillUnmount () {
-    this.unsubscribe();
-  }
-
-  handleChange (evt) {
-    store.dispatch(updateName(evt.target.value));
-  }
-
-  render () {
-    return (
-      <form className="form-group">
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          className="form-control"
-          onChange={this.handleChange}
-          value={this.state.name}
-        />
-      </form>
-    );
-  }
+  return (
+    <form className="form-group">
+      <input
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+        className="form-control"
+        onChange={handleChange}
+        value={name}
+      />
+    </form>
+  );
 }
+
+const mapStateToProps = function (state) {
+  return {
+    name: state.name
+  };
+};
+
+const mapDispatchToProps = function (dispatch) {
+  return {
+    handleChange (evt) {
+      dispatch(updateName(evt.target.value))
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NameEntry);

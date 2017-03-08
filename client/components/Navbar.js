@@ -1,14 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import NameEntry from './NameEntry';
 
-export default class Navbar extends Component {
+function Navbar (props) {
 
-  render () {
-    return (
-      <nav>
-        <h3># channelname goes here</h3>
-        <NameEntry />
-      </nav>
-    );
-  }
+  const { channelName } = props;
+
+  return (
+    <nav>
+      <h3># { channelName }</h3>
+      <NameEntry />
+    </nav>
+  );
 }
+
+const mapStateToProps = function (state, ownProps) {
+
+  const channel = state.channels.filter(channel => {
+    return channel.id === Number(ownProps.channelId);
+  })[0];
+
+  return {
+    channelName: channel ? channel.name : ''
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

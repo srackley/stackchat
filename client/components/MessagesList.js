@@ -1,36 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
-import store from '../store';
 
-export default class Messages extends Component {
+function MessagesList (props) {
 
-  constructor () {
-    super();
-    this.state = store.getState();
-  }
+  const { channelId, messages } = props;
 
-  componentDidMount () {
-    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-  }
-
-  componentWillUnmount () {
-    this.unsubscribe();
-  }
-
-  render () {
-
-    const channelId = Number(this.props.routeParams.channelId); // because it's a string "1", not a number!
-    const messages = this.state.messages;
-    const filteredMessages = messages.filter(message => message.channelId === channelId);
-
-    return (
-      <div>
-        <ul className="media-list">
-          { filteredMessages.map(message => <Message message={message} key={message.id} />) }
-        </ul>
-        <NewMessageEntry channelId={channelId} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <ul className="media-list">
+        { messages.map(message => <Message message={message} key={message.id} />) }
+      </ul>
+      <NewMessageEntry channelId={channelId} />
+    </div>
+  );
 }
+
+const mapStateToProps = function (state, ownProps) {
+
+  const channelId = Number(ownProps.routeParams.channelId);
+
+  return {
+    messages: state.messages.filter(message => message.channelId === channelId),
+    channelId
+  };
+};
+
+export default connect(mapStateToProps)(MessagesList);
