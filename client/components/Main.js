@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import MessagesList from './MessagesList';
+import NewChannelEntry from './NewChannelEntry'
+import store, { fetchMessages, fetchChannels } from './store';
 
-export default function Main (props) {
+export default class Main extends Component {
 
-  const { children, params } = props;
+  componentDidMount () {
+    const messagesThunk = fetchMessages();
+    const channelsThunk = fetchChannels();
+    store.dispatch(messagesThunk);
+    store.dispatch(channelsThunk);
+  }
 
-  return (
-    <div>
-      <Sidebar />
-      <Navbar channelId={params.channelId} />
-      <main>
-        { children }
-      </main>
-    </div>
-  );
+  render () {
+    return (
+      <div>
+        <Sidebar />
+        <Navbar />
+        <main>
+          <Switch>
+            <Route path="/new-channel" component={NewChannelEntry} />
+            <Route path="/channels/:channelId" component={MessagesList} />
+            <Redirect to="/channels/1" />
+          </Switch>
+        </main>
+      </div>
+    );
+  }
 }

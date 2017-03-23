@@ -7,26 +7,15 @@ import './index.scss';
 import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRedirect } from 'react-router';
 import { Provider } from 'react-redux';
-import { Main, MessagesList, NewChannelEntry } from './components';
-import store, { fetchMessages, fetchChannels } from './store';
-
-function onMainEnter () {
-  const messagesThunk = fetchMessages();
-  const channelsThunk = fetchChannels();
-  store.dispatch(messagesThunk);
-  store.dispatch(channelsThunk);
-};
+import store from './store';
+import { HashRouter as Router } from 'react-router-dom';
+import { Main } from './components';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/" component={Main} onEnter={onMainEnter}>
-        <Route path="new-channel" component={NewChannelEntry} />
-        <Route path="channels/:channelId" component={MessagesList} />
-        <IndexRedirect to="channels/1" />
-      </Route>
+    <Router>
+      <Main />
     </Router>
   </Provider>,
   document.getElementById('app')

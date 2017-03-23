@@ -19,7 +19,7 @@ function MessagesList (props) {
 
 const mapStateToProps = function (state, ownProps) {
 
-  const channelId = Number(ownProps.routeParams.channelId);
+  const channelId = Number(ownProps.match.params.channelId);
 
   return {
     messages: state.messages.filter(message => message.channelId === channelId),
