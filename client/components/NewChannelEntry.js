@@ -4,14 +4,14 @@ import { writeChannelName, postChannel } from '../store';
 
 function NewChannelEntry (props) {
 
-  const { channelName, handleSubmit, handleChange } = props;
+  const { newChannelEntry, handleSubmit, handleChange } = props;
 
   return (
-    <form onSubmit={evt => handleSubmit(channelName, evt)}>
+    <form onSubmit={evt => handleSubmit(newChannelEntry, evt)}>
       <div className="form-group">
         <label htmlFor="name">Create a Channel</label>
         <input
-          value={channelName}
+          value={newChannelEntry}
           onChange={handleChange}
           className="form-control"
           type="text"
@@ -28,7 +28,7 @@ function NewChannelEntry (props) {
 
 const mapStateToProps = function (state) {
   return {
-    channelName: state.channelName
+    newChannelEntry: state.newChannelEntry
   };
 };
 

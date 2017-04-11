@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 function ChannelList (props) {
 
-  const { messages, channels } = props;
+  const { messages, channels, changeChannel } = props;
 
   return (
     <ul>
@@ -17,7 +17,7 @@ function ChannelList (props) {
                 <span className="badge">{ messages.filter(message => message.channelId === channel.id).length }</span>
               </Link>
             </li>
-          )
+          );
         })
       }
       <li>

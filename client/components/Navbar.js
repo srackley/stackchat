@@ -4,24 +4,19 @@ import NameEntry from './NameEntry';
 
 function Navbar (props) {
 
-  const { channelName } = props;
+  const { currentChannel } = props;
 
   return (
     <nav>
-      <h3># { channelName }</h3>
+      <h3># { currentChannel }</h3>
       <NameEntry />
     </nav>
   );
 }
 
-const mapStateToProps = function (state, ownProps) {
-
-  const channel = state.channels.filter(channel => {
-    return channel.id === Number(ownProps.channelId);
-  })[0];
-
+const mapStateToProps = function (state) {
   return {
-    channelName: channel ? channel.name : ''
+    currentChannel: state.currentChannel
   };
 };
 

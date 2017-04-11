@@ -11,8 +11,9 @@ const initialState = {
   messages: [],
   channels: [],
   name: 'Reggie',
-  messageContent: '',
-  channelName: ''
+  newChannelEntry: '',
+  newMessageEntry: '',
+  currentChannel: ''
 };
 
 // ACTION TYPES
@@ -24,6 +25,7 @@ const WRITE_MESSAGE = 'WRITE_MESSAGE';
 const WRITE_CHANNEL_NAME = 'WRITE_CHANNEL_NAME';
 const GET_CHANNEL = 'GET_CHANNEL';
 const GET_CHANNELS = 'GET_CHANNELS';
+const CHANGE_CHANNEL = 'CHANGE_CHANNEL';
 
 // ACTION CREATORS
 
@@ -62,6 +64,11 @@ export function getChannels (channels) {
   return action;
 }
 
+export function changeChannel (channelName) {
+  const action = { type: CHANGE_CHANNEL, channelName };
+  return action;
+}
+
 // THUNK CREATORS
 
 export function fetchMessages () {
@@ -73,7 +80,7 @@ export function fetchMessages () {
         const action = getMessages(messages);
         dispatch(action);
       });
-  }
+  };
 }
 
 export function postMessage (message) {
@@ -86,7 +93,7 @@ export function postMessage (message) {
         dispatch(action);
         socket.emit('new-message', newMessage);
       });
-  }
+  };
 }
 
 export function fetchChannels () {
@@ -98,7 +105,7 @@ export function fetchChannels () {
         const action = getChannels(channels);
         dispatch(action);
       });
-  }
+  };
 }
 
 export function postChannel (channel) {
@@ -110,7 +117,18 @@ export function postChannel (channel) {
         dispatch(getChannel(newChannel));
         socket.emit('new-channel', newChannel);
       });
-  }
+  };
+}
+
+export function fetchCurrentChannel (channelId) {
+
+  return function thunk (dispatch) {
+    return axios.get(`/api/channels/${channelId}`)
+      .then(res => res.data)
+      .then(channel => {
+        dispatch(changeChannel(channel.name));
+      });
+  };
 }
 
 // REDUCER
@@ -140,13 +158,13 @@ function reducer (state = initialState, action) {
     case WRITE_MESSAGE:
       return {
         ...state,
-        messageContent: action.content
+        newMessageEntry: action.content
       };
 
     case WRITE_CHANNEL_NAME:
       return {
         ...state,
-        channelName: action.channelName
+        newChannelEntry: action.channelName
       };
 
     case GET_CHANNELS:
@@ -159,6 +177,12 @@ function reducer (state = initialState, action) {
       return {
         ...state,
         channels: [...state.channels, action.channel]
+      };
+
+    case CHANGE_CHANNEL:
+      return {
+        ...state,
+        currentChannel: action.channelName
       };
 
     default:

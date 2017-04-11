@@ -4,16 +4,16 @@ import { postMessage, writeMessage } from '../store';
 
 function NewMessageEntry (props) {
 
-  const { name, messageContent, handleChange, handleSubmit } = props;
+  const { name, newMessageEntry, handleChange, handleSubmit } = props;
 
   return (
-    <form id="new-message-form" onSubmit={evt => handleSubmit(name, messageContent, evt)}>
+    <form id="new-message-form" onSubmit={evt => handleSubmit(name, newMessageEntry, evt)}>
       <div className="input-group input-group-lg">
         <input
           className="form-control"
           type="text"
           name="content"
-          value={messageContent}
+          value={newMessageEntry}
           onChange={handleChange}
           placeholder="Say something nice..."
         />
@@ -27,7 +27,7 @@ function NewMessageEntry (props) {
 
 const mapStateToProps = function (state, ownProps) {
   return {
-    messageContent: state.messageContent,
+    newMessageEntry: state.newMessageEntry,
     name: state.name
   };
 };
@@ -35,7 +35,7 @@ const mapStateToProps = function (state, ownProps) {
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleChange (evt) {
-      dispatch(writeMessage(evt.target.value))
+      dispatch(writeMessage(evt.target.value));
     },
     handleSubmit (name, content, evt) {
       evt.preventDefault();
