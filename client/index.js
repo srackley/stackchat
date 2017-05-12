@@ -4,7 +4,6 @@
 // Wowzers! Check out the webpack.config.js to see how to add them!
 import './index.scss';
 
-import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
