@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function ChannelList (props) {
@@ -12,16 +12,16 @@ function ChannelList (props) {
         channels.map(channel => {
           return (
             <li key={channel.id}>
-              <Link to={`/channels/${channel.id}`}>
+              <NavLink to={`/channels/${channel.id}`} activeClassName="active">
                 <span># {channel.name}</span>
                 <span className="badge">{ messages.filter(message => message.channelId === channel.id).length }</span>
-              </Link>
+              </NavLink>
             </li>
           );
         })
       }
       <li>
-        <Link to="/new-channel">Create a channel...</Link>
+        <NavLink to="/new-channel">Create a channel...</NavLink>
       </li>
     </ul>
   );
@@ -29,8 +29,8 @@ function ChannelList (props) {
 
 const mapStateToProps = function (state) {
   return {
-      messages: state.messages,
-      channels: state.channels
+    messages: state.messages,
+    channels: state.channels
   };
 };
 

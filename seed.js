@@ -4,33 +4,63 @@ const Message = require('./server/db/models/message');
 const Channel = require('./server/db/models/channel');
 
 const channels = [
-  { name: 'Really random' },
-  { name: 'Generally speaking' }
+  { name: 'really_random' },
+  { name: 'generally_speaking' },
+  { name: 'dogs_of_fullstack' },
+  { name: 'lunch_planning' }
 ];
 
 const authors = [{
-  name: 'Taylor',
-  image: 'https://designerdoginfo.files.wordpress.com/2013/01/puggle-puppy-4.jpg?w=584'
+  name: 'Cody',
+  image: '/images/cody.jpg'
 }, {
-  name: 'Reggie',
-  image: 'http://images.shape.mdpcdn.com/sites/shape.com/files/styles/slide/public/puppy-2_0.jpg'
+  name: 'Ben',
+  image: '/images/ben.jpg'
 }, {
-  name: 'Christian',
-  image: 'https://www.askideas.com/media/19/Papillon-Puppy-Looking.jpg'
+  name: 'Star',
+  image: '/images/star.jpg'
 }, {
-  name: 'Jessie',
-  image: 'http://www.101dogbreeds.com/wp-content/uploads/2015/10/Chi-Spaniel-Puppy-Pictures.jpg'
+  name: 'Batman',
+  image: '/images/batman.jpg'
 }, {
-  name: 'Pandora',
-  image: 'http://4.bp.blogspot.com/-3JeIxWBU7bY/UKjIt8lVpCI/AAAAAAAABx8/YM8piSOwczs/s1600/Schipperke-Puppy.jpg'
+  name: 'Elliott',
+  image: '/images/elliott.jpg'
+}, {
+  name: 'Fira',
+  image: '/images/fira.jpg'
+}, {
+  name: 'Henry',
+  image: '/images/henry.jpg'
+}, {
+  name: 'Marcy',
+  image: '/images/marcy.jpg'
+}, {
+  name: 'Milton',
+  image: '/images/milton.jpg'
+}, {
+  name: 'Murphy',
+  image: '/images/murphy.jpg'
+}, {
+  name: 'Raffi',
+  image: '/images/raffi.jpg'
+}, {
+  name: 'Tulsi',
+  image: '/images/tulsi.jpg'
 }];
 
 const messages = [
-  { authorId: 1, content: 'My favorite pug is Cody', channelId: 1 },
-  { authorId: 2, content: 'I also like Cody!', channelId: 1 },
-  { authorId: 3, content: 'I really like puppies', channelId: 2 },
-  { authorId: 4, content: 'I really like React!', channelId: 2 },
-  { authorId: 5, content: 'I really like Redux!', channelId: 2 },
+  { authorId: 1, content: 'I like React!', channelId: 1 },
+  { authorId: 2, content: 'I like Redux!', channelId: 1 },
+  { authorId: 3, content: 'I like React-Redux!', channelId: 1 },
+  { authorId: 4, content: 'I like writing web apps!', channelId: 2 },
+  { authorId: 5, content: 'You should learn JavaScript!', channelId: 2 },
+  { authorId: 6, content: 'JavaScript is pretty great!', channelId: 2 },
+  { authorId: 7, content: 'Dogs are great!', channelId: 3 },
+  { authorId: 8, content: 'Cats are also great!', channelId: 3 },
+  { authorId: 9, content: 'Why must we fight so?', channelId: 3 },
+  { authorId: 10, content: 'I want to get tacos!', channelId: 4 },
+  { authorId: 11, content: 'I want to get salad!', channelId: 4 },
+  { authorId: 12, content: 'I want a taco salad!', channelId: 4 }
 ];
 
 const seed = () =>
@@ -51,7 +81,7 @@ const main = () => {
   console.log('Syncing db...');
   db.sync({ force: true })
     .then(() => {
-      console.log('Seeding databse...')
+      console.log('Seeding databse...');
       return seed();
     })
     .catch(err => {
@@ -62,6 +92,6 @@ const main = () => {
       db.close();
       return null;
     });
-}
+};
 
 main();

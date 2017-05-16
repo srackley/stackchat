@@ -1,6 +1,8 @@
 $default-font-color: #AFB1B6;
 $default-background: #2B303B;
 $darker-background: #303641;
+$active-font-folor: #D4D5D8;
+$active-background: #5294E2;
 
 body {
   height: 100vh;
@@ -49,11 +51,13 @@ body {
         padding: 0;
 
         li {
-          height: 24px;
+          height: 28px;
+          width: 205px;
 
           a {
             color: $default-font-color;
             padding-left: 16px;
+            padding-top: 3px;
             display: list-item;
             height: 100%;
             width: 100%;
@@ -62,6 +66,12 @@ body {
               color: $default-font-color;
               background-color: $darker-background;
               text-decoration: none;
+            }
+
+            &.active {
+              background-color: $active-background;
+              color: $active-font-folor;
+              border-radius: 0 5px 5px 0;
             }
 
             span:first-child {

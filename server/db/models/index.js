@@ -1,4 +1,3 @@
-const db = require('../db');
 const Message = require('./message');
 const Channel = require('./channel');
 const Author = require('./author');

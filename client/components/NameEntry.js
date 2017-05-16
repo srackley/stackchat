@@ -29,7 +29,7 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = function (dispatch) {
   return {
     handleChange (evt) {
-      dispatch(updateName(evt.target.value))
+      dispatch(updateName(evt.target.value));
     }
   };
 };
