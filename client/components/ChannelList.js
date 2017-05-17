@@ -12,7 +12,7 @@ function ChannelList (props) {
         channels.map(channel => {
           return (
             <li key={channel.id}>
-              <NavLink to={`/channels/${channel.id}`} activeClassName="active">
+              <NavLink to={`/channels/${channel.id}`}>
                 <span># {channel.name}</span>
                 <span className="badge">{ messages.filter(message => message.channelId === channel.id).length }</span>
               </NavLink>
@@ -30,7 +30,8 @@ function ChannelList (props) {
 const mapStateToProps = function (state) {
   return {
     messages: state.messages,
-    channels: state.channels
+    channels: state.channels,
+    currentChannel: state.currentChannel
   };
 };
 
