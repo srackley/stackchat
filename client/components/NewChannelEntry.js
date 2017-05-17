@@ -32,14 +32,14 @@ const mapStateToProps = function (state) {
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleChange (evt) {
       dispatch(writeChannelName(evt.target.value));
     },
     handleSubmit (name, evt) {
       evt.preventDefault();
-      dispatch(postChannel({ name }));
+      dispatch(postChannel({ name }, ownProps.history));
       dispatch(writeChannelName(''));
     }
   };

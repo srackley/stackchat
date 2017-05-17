@@ -28,7 +28,7 @@ export default class Main extends Component {
         <Navbar />
         <main>
           <Switch>
-            <Route path="/new-channel" component={NewChannelEntry} />
+            <Route path="/new-channel" render={(routeProps) => <NewChannelEntry history={routeProps.history}/>} />
             <Route path="/channels/:channelId" render={onMessagesListEnter} />
             <Redirect to="/channels/1" />
           </Switch>
