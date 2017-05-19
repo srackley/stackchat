@@ -46,21 +46,35 @@ const authors = [{
 }, {
   name: 'Tulsi',
   image: '/images/tulsi.jpg'
+}, {
+  name: 'Pork Chop',
+  image: '/images/pork_chop.jpg'
+}, {
+  name: 'Ribs',
+  image: '/images/ribs.jpg'
+}, {
+  name: 'Stacey',
+  image: '/images/stacey.jpg'
+}, {
+  name: 'JD',
+  image: '/images/jd.jpg'
 }];
 
+const id = () => Math.round(Math.random() * authors.length);
+
 const messages = [
-  { authorId: 1, content: 'I like React!', channelId: 1 },
-  { authorId: 2, content: 'I like Redux!', channelId: 1 },
-  { authorId: 3, content: 'I like React-Redux!', channelId: 1 },
-  { authorId: 4, content: 'I like writing web apps!', channelId: 2 },
-  { authorId: 5, content: 'You should learn JavaScript!', channelId: 2 },
-  { authorId: 6, content: 'JavaScript is pretty great!', channelId: 2 },
-  { authorId: 7, content: 'Dogs are great!', channelId: 3 },
-  { authorId: 8, content: 'Cats are also great!', channelId: 3 },
-  { authorId: 9, content: 'Why must we fight so?', channelId: 3 },
-  { authorId: 10, content: 'I want to get tacos!', channelId: 4 },
-  { authorId: 11, content: 'I want to get salad!', channelId: 4 },
-  { authorId: 12, content: 'I want a taco salad!', channelId: 4 }
+  { authorId: id(), content: 'I like React!', channelId: 1 },
+  { authorId: id(), content: 'I like Redux!', channelId: 1 },
+  { authorId: id(), content: 'I like React-Redux!', channelId: 1 },
+  { authorId: id(), content: 'I like writing web apps!', channelId: 2 },
+  { authorId: id(), content: 'You should learn JavaScript!', channelId: 2 },
+  { authorId: id(), content: 'JavaScript is pretty great!', channelId: 2 },
+  { authorId: id(), content: 'Dogs are great!', channelId: 3 },
+  { authorId: id(), content: 'Cats are also great!', channelId: 3 },
+  { authorId: id(), content: 'Why must we fight so?', channelId: 3 },
+  { authorId: id(), content: 'I want to get tacos!', channelId: 4 },
+  { authorId: id(), content: 'I want to get salad!', channelId: 4 },
+  { authorId: id(), content: 'I want a taco salad!', channelId: 4 }
 ];
 
 const seed = () =>
