@@ -8,7 +8,7 @@ export default function Sidebar () {
       <div className="sidebar-header">
         <h3 href="#">
           <div>Stack Chat</div>
-          <i alt="Brand" className="glyphicon glyphicon-thumbs-up">
+          <i alt="Brand" className="glyphicon glyphicon-comment">
           </i>
         </h3>
       </div>
