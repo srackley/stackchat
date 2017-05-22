@@ -58,6 +58,9 @@ const authors = [{
 }, {
   name: 'JD',
   image: '/images/jd.jpg'
+}, {
+  name: 'BenBen',
+  image: '/images/benben.png'
 }];
 
 const id = () => Math.round(Math.random() * authors.length);
