@@ -63,7 +63,7 @@ const authors = [{
   image: '/images/benben.png'
 }];
 
-const id = () => Math.round(Math.random() * authors.length);
+const id = () => Math.round(Math.random() * (authors.length - 1)) + 1;
 
 const messages = [
   { authorId: id(), content: 'I like React!', channelId: 1 },
