@@ -7,7 +7,7 @@ function NewChannelEntry (props) {
   const { newChannelEntry, handleSubmit, handleChange } = props;
 
   return (
-    <form onSubmit={evt => handleSubmit(newChannelEntry, evt)}>
+    <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="name">Create a Channel</label>
         <input
@@ -37,8 +37,9 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     handleChange (evt) {
       dispatch(writeChannelName(evt.target.value));
     },
-    handleSubmit (name, evt) {
+    handleSubmit (evt) {
       evt.preventDefault();
+      const name = evt.target.name.value;
       dispatch(postChannel({ name }, ownProps.history));
       dispatch(writeChannelName(''));
     }
