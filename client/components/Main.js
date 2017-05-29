@@ -4,13 +4,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import MessagesList from './MessagesList';
 import NewChannelEntry from './NewChannelEntry';
-import store, { fetchMessages, fetchChannels, fetchCurrentChannel } from '../store';
-
-const onMessagesListEnter = (routeProps) => {
-  const currentChannelThunk = fetchCurrentChannel(routeProps.match.params.channelId);
-  store.dispatch(currentChannelThunk);
-  return ( <MessagesList {...routeProps} /> );
-};
+import store, { fetchMessages, fetchChannels } from '../store';
 
 export default class Main extends Component {
 
@@ -28,8 +22,8 @@ export default class Main extends Component {
         <Navbar />
         <main>
           <Switch>
-            <Route path="/new-channel" render={(routeProps) => <NewChannelEntry history={routeProps.history}/>} />
-            <Route path="/channels/:channelId" render={onMessagesListEnter} />
+            <Route path="/new-channel" component={NewChannelEntry} />
+            <Route path="/channels/:channelId" component={MessagesList} />
             <Redirect to="/channels/1" />
           </Switch>
         </main>

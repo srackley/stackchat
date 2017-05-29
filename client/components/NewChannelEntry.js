@@ -15,7 +15,7 @@ function NewChannelEntry (props) {
           onChange={handleChange}
           className="form-control"
           type="text"
-          name="name"
+          name="channelName"
           placeholder="Enter channel name"
         />
       </div>
@@ -39,7 +39,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     },
     handleSubmit (evt) {
       evt.preventDefault();
-      const name = evt.target.name.value;
+      const name = evt.target.channelName.value;
       dispatch(postChannel({ name }, ownProps.history));
       dispatch(writeChannelName(''));
     }

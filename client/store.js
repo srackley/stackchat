@@ -64,7 +64,7 @@ export function getChannels (channels) {
   return action;
 }
 
-export function changeChannel (channelName) {
+export function changeCurrentChannel (channelName) {
   const action = { type: CHANGE_CHANNEL, channelName };
   return action;
 }
@@ -117,17 +117,6 @@ export function postChannel (channel, history) {
         dispatch(getChannel(newChannel));
         socket.emit('new-channel', newChannel);
         history.push(`/channels/${newChannel.id}`);
-      });
-  };
-}
-
-export function fetchCurrentChannel (channelId) {
-
-  return function thunk (dispatch) {
-    return axios.get(`/api/channels/${channelId}`)
-      .then(res => res.data)
-      .then(channel => {
-        dispatch(changeChannel(channel.name));
       });
   };
 }

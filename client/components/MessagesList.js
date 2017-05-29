@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
+import { changeCurrentChannel } from '../store';
 
 function MessagesList (props) {
 
@@ -17,14 +18,45 @@ function MessagesList (props) {
   );
 }
 
+class MessagesListLoader extends Component {
+
+  componentDidMount () {
+    this.props.changeCurrentChannel(this.props.channel);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.channel.name !== this.props.channel.name) {
+      this.props.changeCurrentChannel(nextProps.channel);
+    }
+  }
+
+  render () {
+    return (
+      <MessagesList {...this.props} />
+    );
+  }
+}
+
 const mapStateToProps = function (state, ownProps) {
 
   const channelId = Number(ownProps.match.params.channelId);
 
   return {
+    channel: state.channels.find(channel => channel.id === channelId) || {},
     messages: state.messages.filter(message => message.channelId === channelId),
     channelId
   };
 };
 
-export default connect(mapStateToProps)(MessagesList);
+const mapDispatchToProps = function (dispatch) {
+  return {
+    changeCurrentChannel(channel) {
+      dispatch(changeCurrentChannel(channel.name));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MessagesListLoader);
