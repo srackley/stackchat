@@ -21,12 +21,12 @@ function MessagesList (props) {
 class MessagesListLoader extends Component {
 
   componentDidMount () {
-    this.props.changeCurrentChannel(this.props.channel);
+    this.props.changeCurrentChannel(this.props.channel.name);
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.channel.name !== this.props.channel.name) {
-      this.props.changeCurrentChannel(nextProps.channel);
+      this.props.changeCurrentChannel(nextProps.channel.name);
     }
   }
 
@@ -42,7 +42,7 @@ const mapStateToProps = function (state, ownProps) {
   const channelId = Number(ownProps.match.params.channelId);
 
   return {
-    channel: state.channels.find(channel => channel.id === channelId) || {},
+    channel: state.channels.find(channel => channel.id === channelId) || { name: '' },
     messages: state.messages.filter(message => message.channelId === channelId),
     channelId
   };
@@ -50,8 +50,8 @@ const mapStateToProps = function (state, ownProps) {
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    changeCurrentChannel(channel) {
-      dispatch(changeCurrentChannel(channel.name));
+    changeCurrentChannel(channelName) {
+      dispatch(changeCurrentChannel(channelName));
     }
   };
 };
