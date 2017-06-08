@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   entry: './client/index.js',
   output: {
@@ -9,7 +11,9 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        include: [
+          path.resolve(__dirname, 'client')
+        ],
         loader: 'babel-loader',
         options: {
           presets: ['react', 'es2015', 'stage-2']
