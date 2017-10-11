@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import store from './store'
 
 // These values are all hardcoded...for now!
 // Soon, we'll fetch them from the server!
@@ -9,6 +10,18 @@ const DOGS_CHANNEL = '/channels/3';
 const LUNCH_CHANNEL = '/channels/4';
 
 export default class ChannelList extends Component {
+  constructor() {
+    super();
+    this.state = store.getState();
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
 
   render () {
     return (
