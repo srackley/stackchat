@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import store from './store'
+import store, {gotChannelsFromServer, gotMessagesFromServer} from '../store';
+import axios from 'axios';
 
 // These values are all hardcoded...for now!
 // Soon, we'll fetch them from the server!
@@ -16,6 +17,13 @@ export default class ChannelList extends Component {
   }
 
   componentDidMount() {
+    axios.get('/api/channels/')
+      .then(res => res.data)
+      .then(channels => {
+        const action = gotChannelsFromServer(channels);
+        store.dispatch(action);
+      });
+
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
 
@@ -24,30 +32,32 @@ export default class ChannelList extends Component {
   }
 
   render () {
+    const messages = this.state.messages;
+
     return (
       <ul>
         <li>
           <NavLink to={RANDOM_CHANNEL} activeClassName="active">
             <span># really_random</span>
-            <span className="badge">0</span>
+            <span className="badge">{messages.filter(message => message.channelId === 1).length}</span>
           </NavLink>
         </li>
         <li>
           <NavLink to={GENERAL_CHANNEL} activeClassName="active">
             <span># generally_speaking</span>
-            <span className="badge">0</span>
+            <span className="badge">{messages.filter(message => message.channelId === 2).length}</span>
           </NavLink>
         </li>
         <li>
           <NavLink to={DOGS_CHANNEL} activeClassName="active">
             <span># dogs_of_fullstack</span>
-            <span className="badge">0</span>
+            <span className="badge">{messages.filter(message => message.channelId === 3).length}</span>
           </NavLink>
         </li>
         <li>
           <NavLink to={LUNCH_CHANNEL} activeClassName="active">
             <span># lunch_planning</span>
-            <span className="badge">0</span>
+            <span className="badge">{messages.filter(message => message.channelId === 4).length}</span>
           </NavLink>
         </li>
       </ul>
