@@ -26,6 +26,6 @@ const unsubscribe = store.subscribe(() => {
 store.dispatch(gotMessagesFromServer([{ author: 'Milton', content: 'Hey @channel' }]));
 store.dispatch(gotMessagesFromServer([{ author: 'Marcy', content: 'Anybody @here want ice cream?' }]));
 
-unsubscribe();
+// unsubscribe();
 
 store.dispatch(gotMessagesFromServer([{ author: 'Astro', content: 'To infinity and beyond!' }]));
