@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import store, { writeAuthor } from '../store';
+import store, { writeName } from '../store';
 
 export default class NameEntry extends Component {
   constructor() {
@@ -18,7 +18,8 @@ export default class NameEntry extends Component {
   }
 
   handleChange(evt) {
-    const action = writeAuthor(evt.target.value);
+    const nameVal = evt.target.value;
+    const action = writeName(nameVal);
     store.dispatch(action);
   }
 
@@ -27,7 +28,7 @@ export default class NameEntry extends Component {
   }
 
   render() {
-    const name = this.state.author;
+    const name = this.state.name;
     return (
       <form className="form-inline" onSubmit={this.handleSubmit}>
         <label htmlFor="name">Your name:</label>

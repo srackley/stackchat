@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store, {writeMessage, postMessage} from '../store';
+import socket from '../socket';
 
 export default class NewMessageEntry extends Component {
   constructor() {
@@ -26,9 +27,8 @@ export default class NewMessageEntry extends Component {
   handleSubmit(evt) {
     const content = this.state.newMessageEntry,
           channelId = this.props.channelId,
-          author = this.state.author;
-    const message = { content, channelId, author };
-    console.log("message=", message)
+          name = this.state.name;
+    const message = { content, channelId, name };
     store.dispatch(postMessage(message));
     evt.preventDefault();
   }

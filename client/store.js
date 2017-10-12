@@ -8,7 +8,7 @@ const GOT_MESSAGES_FROM_SERVER = 'GOT_MESSAGES_FROM_SERVER',
       GOT_CHANNELS_FROM_SERVER = 'GOT_CHANNELS_FROM_SERVER',
       WRITE_MESSAGE = 'WRITE_MESSAGE',
       GOT_NEW_MESSAGE_FROM_SERVER = 'GOT_NEW_MESSAGE_FROM_SERVER',
-      WRITE_AUTHOR = 'GOT_AUTHOR';
+      WRITE_NAME = 'WRITE_NAME';
 
 export function gotMessagesFromServer(messages) {
   return {
@@ -38,24 +38,18 @@ export function gotNewMessageFromServer(message) {
   }
 }
 
-export function writeAuthor(name) {
+export function writeName(name) {
   return {
-    type: WRITE_AUTHOR,
-    author: name
+    type: WRITE_NAME,
+    name: name
   }
 }
-
-// export function fetchAuthors(authors) {
-//   return {
-//     type:
-//   }
-// }
 
 const initialState = {
   messages: [],
   newMessageEntry: '',
   channels: [],
-  author: ''
+  name: ''
 };
 
 function reducer(state = initialState, action) {
@@ -68,15 +62,15 @@ function reducer(state = initialState, action) {
       return Object.assign({}, state, { newMessageEntry: action.newMessageEntry });
     case GOT_NEW_MESSAGE_FROM_SERVER:
       return Object.assign({}, state, { messages: state.messages.concat(action.message) });
-    case WRITE_AUTHOR:
-      return Object.assign({}, state, { author: action.name });
+    case WRITE_NAME:
+      return Object.assign({}, state, { name: action.name });
     default:
       return state;
   }
 }
 
-export function fetchMessages() {
-  const thunk = (dispatch) => {
+export function fetchMessages(messages) {
+  const thunk = (dispatch, getState) => {
     return axios.get('/api/messages')
       .then(res => res.data)
       .then(messages => {
@@ -88,7 +82,7 @@ export function fetchMessages() {
 }
 
 export function postMessage(message) {
-  const thunk = (dispatch) => {
+  const thunk = (dispatch, getState) => {
 
     return axios.post('/api/messages', message)
       .then(res => res.data)
@@ -101,8 +95,8 @@ export function postMessage(message) {
   return thunk;
 }
 
-export function fetchChannels() {
-  const thunk = (dispatch) => {
+export function fetchChannels(channels) {
+  const thunk = (dispatch, getState) => {
     return axios.get('/api/channels/')
         .then(res => res.data)
         .then(channels => {
