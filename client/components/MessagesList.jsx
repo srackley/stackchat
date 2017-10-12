@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
-import axios from 'axios';
-import store, { gotMessagesFromServer } from '../Store'
+import store, { gotMessagesFromServer } from '../Store';
 
 export default class MessagesList extends Component {
-
-  constructor () {
+  constructor() {
     super();
     this.state = store.getState();
   }
 
-  componentDidMount () {
+  componentDidMount() {
     axios.get('/api/messages')
       .then(res => res.data)
-      .then(messages => {
+      .then((messages) => {
         const action = gotMessagesFromServer(messages);
         store.dispatch(action);
       });
 
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-    }
+  }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.unsubscribe();
   }
 
-  render () {
-
+  render() {
     const channelId = Number(this.props.match.params.channelId); // because it's a string "1", not a number!
-    const messages = this.state.messages;
+    const { messages } = this.state;
     const filteredMessages = messages.filter(message => message.channelId === channelId);
 
     return (

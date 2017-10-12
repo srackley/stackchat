@@ -1,8 +1,7 @@
 import React from 'react';
 
-export default function Message (props) {
-
-  const message = props.message;
+export default function Message(props) {
+  const { message } = props;
 
   return (
     <li className="media">

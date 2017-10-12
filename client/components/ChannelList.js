@@ -9,30 +9,29 @@ const DOGS_CHANNEL = '/channels/3';
 const LUNCH_CHANNEL = '/channels/4';
 
 export default class ChannelList extends Component {
-
-  constructor () {
+  constructor() {
     super();
     this.state = store.getState();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.unsubscribe();
   }
 
-  render () {
-    const messages = this.state.messages;
+  render() {
+    const { messages } = this.state;
     return (
       <ul>
         <li>
-        <NavLink to={RANDOM_CHANNEL} activeClassName="active">
-          <span># really_random</span>
-          <span className="badge">{ messages.filter(message => message.channelId === 1).length }</span>
-        </NavLink>
-      </li>
+          <NavLink to={RANDOM_CHANNEL} activeClassName="active">
+            <span># really_random</span>
+            <span className="badge">{ messages.filter(message => message.channelId === 1).length }</span>
+          </NavLink>
+        </li>
         <li>
           <NavLink to={GENERAL_CHANNEL} activeClassName="active">
             <span># generally_speaking</span>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 export default class NewMessageEntry extends Component {
-
-  render () {
+  render() {
     return (
       <form id="new-message-form">
         <div className="input-group input-group-lg">
