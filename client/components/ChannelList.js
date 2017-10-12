@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import store, {gotChannelsFromServer, gotMessagesFromServer} from '../store';
-import axios from 'axios';
+import store, { fetchChannels } from '../store';
 
 // These values are all hardcoded...for now!
 // Soon, we'll fetch them from the server!
@@ -16,14 +15,10 @@ export default class ChannelList extends Component {
     this.state = store.getState();
   }
 
-  componentDidMount() {
-    axios.get('/api/channels/')
-      .then(res => res.data)
-      .then(channels => {
-        const action = gotChannelsFromServer(channels);
-        store.dispatch(action);
-      });
 
+  componentDidMount() {
+    const thunk = fetchChannels();
+    store.dispatch(thunk);
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
 
@@ -32,8 +27,7 @@ export default class ChannelList extends Component {
   }
 
   render () {
-    const messages = this.state.messages;
-
+  let messages = this.state.messages;
     return (
       <ul>
         <li>
