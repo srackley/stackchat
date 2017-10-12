@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import store, { authorName } from '../Store';
 
 
-
-
 export default class NameEntry extends Component {
-
   constructor(props) {
     super(props);
     this.state = store.getState();
@@ -20,25 +17,26 @@ export default class NameEntry extends Component {
     this.unsubscribe();
   }
 
-  handleChange(event){
-    const action = authorName(event.target.value)
-    // console.log('event', event.target.value)
+  handleChange(event) {
+    const action = authorName(event.target.value);
     store.dispatch(action);
   }
 
 
   render() {
+    const { author } = this.state;
     return (
       <form className="form-inline">
-      <label htmlFor="name">Your name:</label>
-      <input
-        type="text"
-        name="name"
-        placeholder="Enter your name"
-        className="form-control"
-        onChange={this.handleChange}
-      />
-    </form>
-    )
+        <label htmlFor="name">Your name:</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter your name"
+          className="form-control"
+          onChange={this.handleChange}
+          value={author}
+        />
+      </form>
+    );
   }
 }

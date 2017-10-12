@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import store, { writeMessage, gotNewMesssageFromServer } from '../Store';
-import socket from '../socket';
+import store, { writeMessage, postMessage } from '../Store';
 
 export default class NewMessageEntry extends Component {
   constructor() {
@@ -22,16 +20,14 @@ export default class NewMessageEntry extends Component {
   handleChange(event) {
     const action = writeMessage(event.target.value);
     store.dispatch(action);
-    // console.log(store.getState());
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const content = this.state.newMessageEntry;
     const { channelId } = this.props;
-    const author = this.state.author;
-    // console.log('author on state?', this.state.author);
-    const thunk = postMessage(content, channelId);
+    const { author } = this.state;
+    const thunk = postMessage(content, channelId, author);
     store.dispatch(thunk);
   }
 

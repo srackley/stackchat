@@ -36,29 +36,25 @@ export const authorName = inputContent => ({
   author: inputContent,
 });
 
-export const fetchMessages = () => {
-  return function thunk(dispatch) {
-    return axios.get('/api/messages')
-      .then(res => res.data)
-      .then((messages) => {
-        const action = gotMessagesFromServer(messages);
-        dispatch(action);
-      });
-  }
-}
-
-export const postMessage = (content, channelId, author) => {
-  return function thunk(dispatch) {
-    return axios.post('/api/messages', { content, channelId, name: author })
+export const fetchMessages = () => function thunk(dispatch) {
+  return axios.get('/api/messages')
     .then(res => res.data)
-    .then(message => {
+    .then((messages) => {
+      const action = gotMessagesFromServer(messages);
+      dispatch(action);
+    });
+};
+
+export const postMessage = (content, channelId, author) => function thunk(dispatch) {
+  return axios.post('/api/messages', { content, channelId, name: author })
+    .then(res => res.data)
+    .then((message) => {
       dispatch(gotNewMesssageFromServer(message));
       socket.emit('new-message', message);
     });
-  }
-}
+};
 
-const middlewareHandler = applyMiddleware(loggerMiddleware, thunkMiddleware)
+const middlewareHandler = applyMiddleware(loggerMiddleware, thunkMiddleware);
 
 function reducer(state = initialState, action) {
   switch (action.type) {

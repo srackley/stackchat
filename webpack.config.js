@@ -4,7 +4,7 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './public/bundle.js',
   },
   devtool: 'source-map',
   module: {
@@ -12,19 +12,21 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: [
-          path.resolve(__dirname, 'client')
+          path.resolve(__dirname, 'client'),
         ],
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.scss$/,
         use: [
           'style-loader',
           'css-loader',
-          'sass-loader'
-        ]
-      }
-    ]
-  }
+          'sass-loader',
+        ],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'],
+  },
 };
-

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
-import store, { gotMessagesFromServer, fetchMessages } from '../Store';
+import store, { fetchMessages } from '../Store';
 
 export default class MessagesList extends Component {
   constructor() {
@@ -11,7 +10,7 @@ export default class MessagesList extends Component {
   }
 
   componentDidMount() {
-    const thunk = fetchMessages()
+    const thunk = fetchMessages();
     store.dispatch(thunk);
     this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
   }
@@ -21,7 +20,7 @@ export default class MessagesList extends Component {
   }
 
   render() {
-    const channelId = Number(this.props.match.params.channelId); // because it's a string "1", not a number!
+    const channelId = Number(this.props.match.params.channelId);
     const { messages } = this.state;
     const filteredMessages = messages.filter(message => message.channelId === channelId);
 

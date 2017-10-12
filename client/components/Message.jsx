@@ -7,7 +7,7 @@ export default function Message(props) {
     <li className="media">
       <div className="media-left">
         <a href="#">
-          <img className="media-object" src={message.author.image} alt="image" />
+          <img className="media-object" src={message.author.image} alt="author" />
         </a>
       </div>
       <div className="media-body">
