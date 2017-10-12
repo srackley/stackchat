@@ -31,7 +31,7 @@ export default class NameEntry extends Component {
     const name = this.state.name;
     return (
       <form className="form-inline" onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Your name:</label>
+        <label htmlFor="name">Your name: </label>
         <input
           type="text"
           name={name}

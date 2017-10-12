@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NameEntry from './NameEntry';
 
-export default class Navbar extends Component {
-
-  render () {
+export default function Navbar() {
     return (
       <nav>
         <h3># channelname goes here</h3>
         <NameEntry />
       </nav>
     );
-  }
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Message from './Message';
 import NewMessageEntry from './NewMessageEntry';
-import axios from 'axios';
-import store, { gotMessagesFromServer, fetchMessages } from '../store';
+import store, { fetchMessages } from '../store';
 
 export default class MessagesList extends Component {
 
@@ -31,7 +30,7 @@ export default class MessagesList extends Component {
         <ul className="media-list">
           { filteredMessages.map(message => <Message message={message} key={message.id} />) }
         </ul>
-        <NewMessageEntry channelId={channelId}/>
+        <NewMessageEntry channelId={channelId} />
       </div>
     );
   }
